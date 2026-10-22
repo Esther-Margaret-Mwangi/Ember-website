@@ -52,11 +52,15 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
   const [notice, setNotice] = useState('')
   const [discountApplied, setDiscountApplied] = useState(false)
   const [checkoutComplete, setCheckoutComplete] = useState(false)
+  const [lastShopPath, setLastShopPath] = useState('/shop')
 
   const query = searchOpen ? searchDraft : routeQuery
   const detailId = Number(route.split('/')[2])
   const detailProduct = products.find((product) => product.id === detailId)
   const go = (destination: string) => {
+    if (destination.startsWith('/product/') && route === '/shop') {
+      setLastShopPath(path)
+    }
     setMobileMenuOpen(false)
     setSearchOpen(false)
     onNavigate(destination)
@@ -393,6 +397,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
         key={detailProduct.id}
         product={detailProduct}
         favorite={favorites.includes(detailProduct.id)}
+        onBackToProducts={() => go(lastShopPath)}
         onAddToCart={(size) => addToCart(detailProduct, detailProduct.color, size)}
         onToggleFavorite={() => toggleFavorite(detailProduct)}
       />}

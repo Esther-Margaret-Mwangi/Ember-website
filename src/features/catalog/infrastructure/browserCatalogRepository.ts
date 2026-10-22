@@ -5,7 +5,47 @@ const databaseVersion = 3
 const objectStoreName = 'catalog'
 const catalogKey = 'current'
 const metadataStoreName = 'metadata'
-const seedMigrationKey = 'ember-seed-v4'
+const seedMigrationKey = 'ember-seed-v5'
+const previousSeedCategoryImageIds: Record<string, string> = {
+  lighting: 'photo-1507473885765-e6ed057f782c',
+  textiles: 'photo-1600369671236-e74521d4b6ad',
+  decor: 'photo-1578500494198-246f612d3b3d',
+  atmosphere: 'photo-1603006905003-be475563bc59',
+  tableware: 'photo-1490312278390-ab64016e0aa9',
+  rugs: 'photo-1600210492486-724fe5c67fb0',
+  'wall-art': 'photo-1577083552431-6e5fd01aa342',
+  furniture: 'photo-1616486338812-3dadae4b4ace',
+  planters: 'photo-1485955900006-10f4d324d411',
+  mirrors: 'photo-1618221195710-dd6b41faaea6',
+  storage: 'photo-1595428774223-ef52624120d2',
+  bedding: 'photo-1631049307264-da0ec9d70304',
+}
+const previousSeedProductImageIds: Record<string, string[]> = {
+  'ATM-001': ['photo-1603006905003-be475563bc59'],
+  'DEC-014': ['photo-1578500494198-246f612d3b3d'],
+  'TEX-008': ['photo-1600369671236-e74521d4b6ad'],
+  'LGT-003': ['photo-1507473885765-e6ed057f782c'],
+  'DEC-015': ['photo-1578500494198-246f612d3b3d', 'photo-1612196808214-b7e1d6145a8c'],
+  'TEX-009': ['photo-1584100936595-c0654b55a2e2'],
+  'ATM-002': ['photo-1602874801007-bd458bb1b8b6'],
+  'DEC-016': ['photo-1610701596007-11502861dcfa'],
+  'TAB-001': ['photo-1490312278390-ab64016e0aa9'],
+  'RUG-001': ['photo-1600210492486-724fe5c67fb0'],
+  'ART-001': ['photo-1577083552431-6e5fd01aa342'],
+  'FUR-001': ['photo-1616486338812-3dadae4b4ace'],
+  'PLT-001': ['photo-1485955900006-10f4d324d411'],
+  'MIR-001': ['photo-1618221195710-dd6b41faaea6'],
+  'STO-001': ['photo-1595428774223-ef52624120d2'],
+  'BED-001': ['photo-1631049307264-da0ec9d70304'],
+  'LGT-004': ['photo-1507473885765-e6ed057f782c'],
+  'TEX-010': ['photo-1600369671236-e74521d4b6ad'],
+  'DEC-017': ['photo-1578500494198-246f612d3b3d'],
+  'ATM-003': ['photo-1602874801007-bd458bb1b8b6'],
+  'TAB-002': ['photo-1490312278390-ab64016e0aa9'],
+  'RUG-002': ['photo-1600210492486-724fe5c67fb0'],
+  'PLT-002': ['photo-1485955900006-10f4d324d411'],
+  'BED-002': ['photo-1631049307264-da0ec9d70304'],
+}
 
 function openDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -70,8 +110,17 @@ export async function loadCatalog(): Promise<CatalogData> {
 function mergeSeedCatalog(storedCatalog: CatalogData): CatalogData {
   const categories = [...storedCatalog.categories]
   for (const seedCategory of initialCatalog.categories) {
-    if (!categories.some((category) => category.name.toLowerCase() === seedCategory.name.toLowerCase())) {
+    const existingCategoryIndex = categories.findIndex(
+      (category) => category.id === seedCategory.id || category.name.toLowerCase() === seedCategory.name.toLowerCase(),
+    )
+    if (existingCategoryIndex === -1) {
       categories.push(seedCategory)
+      continue
+    }
+    const existingCategory = categories[existingCategoryIndex]
+    const previousImageId = previousSeedCategoryImageIds[seedCategory.id]
+    if (previousImageId && existingCategory.image.includes(previousImageId)) {
+      categories[existingCategoryIndex] = { ...existingCategory, image: seedCategory.image }
     }
   }
 
@@ -82,8 +131,12 @@ function mergeSeedCatalog(storedCatalog: CatalogData): CatalogData {
     const existingProductIndex = products.findIndex((product) => product.sku === seedProduct.sku)
     if (existingProductIndex !== -1) {
       const existingProduct = products[existingProductIndex]
-      if (seedProduct.sku === 'DEC-015' && existingProduct.images[0]?.includes('photo-1612196808214-b7e1d6145a8c')) {
-        products[existingProductIndex] = { ...existingProduct, images: seedProduct.images }
+      const previousImageIds = previousSeedProductImageIds[seedProduct.sku] ?? []
+      if (previousImageIds.some((imageId) => existingProduct.images[0]?.includes(imageId))) {
+        products[existingProductIndex] = {
+          ...existingProduct,
+          images: [seedProduct.images[0], ...existingProduct.images.slice(1)],
+        }
       }
       continue
     }

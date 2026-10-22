@@ -5,11 +5,13 @@ import { StorefrontIcon } from '../../../shared/components/StorefrontIcon'
 export default function ProductDetailPage({
   product,
   favorite,
+  onBackToProducts,
   onAddToCart,
   onToggleFavorite,
 }: {
   product: CatalogProduct
   favorite: boolean
+  onBackToProducts: () => void
   onAddToCart: (size: string) => void
   onToggleFavorite: () => void
 }) {
@@ -18,6 +20,9 @@ export default function ProductDetailPage({
 
   return (
     <section className="store-page product-page">
+      <button className="product-back-button" type="button" onClick={onBackToProducts}>
+        <span aria-hidden="true">←</span> Back to shop
+      </button>
       <div className="product-page-gallery">
         <div className="product-page-image"><img src={product.images[imageIndex] ?? product.images[0]} alt={product.name} /></div>
         {product.images.length > 1 && <div className="product-gallery-thumbnails">{product.images.map((image, index) => (
