@@ -28,6 +28,11 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
   const { catalog, setCatalog } = useCatalog()
   const products = catalog.products
   const categories = catalog.categories
+  const homeMoments = [
+    { category: 'Tableware', title: 'Slow mornings', description: 'Make a little more room for that first cup.' },
+    { category: 'Textiles', title: 'Softer landings', description: 'Settle in with layers made for switching off.' },
+    { category: 'Atmosphere', title: 'Evening rituals', description: 'Bring a softer glow to the end of the day.' },
+  ]
   const currentUrl = new URL(path, 'http://ember.local')
   const route = currentUrl.pathname
   const routeCategory = currentUrl.searchParams.get('category') ?? 'All'
@@ -484,10 +489,33 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           : <div className="empty-search">Nothing found just yet. Try another category.</div>}
       </section>}
 
-      {route === '/' && <section className="brand-note">
-        <span className="brand-note-mark" aria-hidden="true">e</span>
-        <p>Fewer things. <em>More feeling.</em></p>
-        <span>Objects chosen to stay, not just to be seen.</span>
+      {route === '/' && <section className="home-moments" aria-labelledby="home-moments-title">
+        <div className="home-moments-heading">
+          <div>
+            <p className="eyebrow"><span /> THE GOOD PART OF EVERYDAY</p>
+            <h2 id="home-moments-title">A little something for <em>every moment.</em></h2>
+          </div>
+          <p>Find the pieces that make ordinary days feel like your own.</p>
+        </div>
+        <div className="home-moments-grid">
+          {homeMoments.map((moment, index) => {
+            const category = categories.find((item) => item.name === moment.category)
+            if (!category) return null
+            const destination = `/shop?category=${encodeURIComponent(category.name)}`
+            return (
+              <a className="home-moment-card" href={destination} key={category.id} onClick={handleLink(destination)}>
+                <img src={category.image} alt="" loading="lazy" />
+                <span className="home-moment-number">0{index + 1}</span>
+                <span className="home-moment-copy">
+                  <span>{category.name}</span>
+                  <strong>{moment.title}</strong>
+                  <span className="home-moment-description">{moment.description}</span>
+                  <span className="home-moment-link">Explore the edit <Icon name="arrow" size={17} /></span>
+                </span>
+              </a>
+            )
+          })}
+        </div>
       </section>}
 
       <footer className="store-footer">
