@@ -176,6 +176,7 @@ function Icon({
 
 function Storefront({ onOpenAdmin }: StorefrontProps) {
   const [category, setCategory] = useState('All')
+  const [announcementVisible, setAnnouncementVisible] = useState(true)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState('Featured')
@@ -316,15 +317,28 @@ function Storefront({ onOpenAdmin }: StorefrontProps) {
 
   return (
     <main className="storefront">
-      <div className="announcement">
-        <span>Thoughtful things for slower days</span>
-        <span>Complimentary shipping on orders over $100 <span aria-hidden="true">↗</span></span>
-      </div>
+      {announcementVisible && (
+        <div className="announcement">
+          <span>Thoughtful things for slower days</span>
+          <span>Complimentary shipping on orders over $100 <span aria-hidden="true">↗</span></span>
+          <button
+            className="announcement-dismiss"
+            type="button"
+            aria-label="Dismiss announcement"
+            onClick={() => setAnnouncementVisible(false)}
+          >
+            <Icon name="close" size={14} />
+          </button>
+        </div>
+      )}
 
       <header className="store-header">
         <a className="brand" href="#home" aria-label="Ember home">
-          <span className="brand-mark" aria-hidden="true">e</span>
-          <span className="brand-word">ember<span>.</span><small>HOME, HELD CLOSE</small></span>
+          <img
+            className="brand-logo"
+            src="/emberlogo-transparent.png"
+            alt="Ember — Warmth, thoughtfully styled"
+          />
         </a>
         <nav className="main-nav" aria-label="Main navigation">
           <a href="#home">Home</a>
@@ -517,7 +531,12 @@ function Storefront({ onOpenAdmin }: StorefrontProps) {
       <footer className="store-footer">
         <div className="footer-main">
           <div className="footer-brand">
-            <a className="brand" href="#home"><span className="brand-mark">e</span><span className="brand-word">ember<span>.</span><small>HOME, HELD CLOSE</small></span></a>
+            <div className="footer-brand-lockup">
+              <a className="footer-brand-logo" href="#home" aria-label="Ember home">
+                <img src="/emberlogo2.png" alt="" />
+              </a>
+              <span className="footer-brand-name">EMBER</span>
+            </div>
             <p>Make room for a little more feeling.</p>
           </div>
           <div className="footer-links"><strong>Explore</strong><a href="#shop">Shop all</a><a href="#collections">Collections</a><a href="#story">Our story</a></div>
@@ -534,7 +553,6 @@ function Storefront({ onOpenAdmin }: StorefrontProps) {
         </div>
         <div className="footer-bottom" id="footer">
           <span>© 2025 Ember Home. Made for the moments in between.</span>
-          <button onClick={() => requestLogin('admin')}>Admin preview</button>
           <span>Privacy · Terms</span>
         </div>
       </footer>

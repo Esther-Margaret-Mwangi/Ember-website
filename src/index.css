@@ -19,6 +19,13 @@
   --clay: #a45e3d;
   --clay-dark: #80452e;
   --serif: 'Playfair Display', Georgia, serif;
+  --font-caption: 0.6875rem;
+  --font-small: 0.75rem;
+  --font-body: 0.9375rem;
+  --font-lead: 1rem;
+  --font-subheading: 1.25rem;
+  --font-heading: clamp(2rem, 3.5vw, 3rem);
+  --font-display: clamp(2.75rem, 5.2vw, 4rem);
 }
 
 * {

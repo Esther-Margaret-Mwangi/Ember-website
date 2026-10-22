@@ -202,3 +202,42 @@
   .promo-card { padding: 17px; }
   .new-promo-card { min-height: 170px; }
 }
+
+.admin-app { font-size: 14px; }
+.admin-brand small { font-size: 9px; }
+.sidebar-label, .admin-user small, .admin-overline, .preview-label, .metric-card > small,
+.panel-heading p, .sales-total small, .chart-y-axis, .chart-x-axis, .stock-alert > span small,
+.admin-table th, .admin-table td select, .inventory-summary span, .soft-tag,
+.inventory-product strong, .stock-indicator, .reservation-note p, .promo-meta span,
+.promo-meta strong, .new-promo-card small, .analytics-cards > article > p, .top-seller b,
+.admin-footnote, .promo-status, .admin-nav button .nav-badge {
+  font-size: 10px;
+}
+.admin-nav button, .return-store, .breadcrumb, .admin-notice, .admin-subheading,
+.admin-date-button, .panel-link, .status-pill, .admin-primary-button, .admin-secondary-button {
+  font-size: 12px;
+}
+.admin-user strong, .metric-label, .sales-total > span, .stock-alert > b, .top-seller > span {
+  font-size: 11px;
+}
+.return-store span { font-size: 11px; }
+.admin-page-heading h1 { font-size: clamp(1.625rem, 2.4vw, 2rem); }
+.metric-card > strong { font-size: 26px; }
+.panel-heading h2 { font-size: 18px; }
+.sales-total strong { font-size: 24px; }
+.inventory-summary strong { font-size: 22px; }
+.reservation-note strong { font-size: 12px; }
+.promo-card > p { font-size: 12px; }
+.promo-card h2 { font-size: 26px; }
+.analytics-cards > article > strong { font-size: 28px; }
+.analytics-cards h2 { font-size: 22px; }
+.top-seller strong { font-size: 12px; }
+
+@media (max-width: 650px) {
+  .admin-nav button:not(.active), .admin-nav button.active { font-size: 0; }
+  .admin-page-heading h1 { font-size: 25px; }
+  .panel-heading h2 { font-size: 16px; }
+  .inventory-summary span { font-size: 10px; }
+  .inventory-summary strong { font-size: 20px; }
+  .soft-tag { font-size: 9px; }
+}
