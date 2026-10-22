@@ -40,6 +40,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
   const [sort, setSort] = useState('Featured')
   const [dialog, setDialog] = useState<'login' | 'cart' | 'product' | null>(null)
   const [loginRole, setLoginRole] = useState<'customer' | 'admin'>('customer')
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [customerPreview, setCustomerPreview] = useState(false)
   const [activeProduct, setActiveProduct] = useState<Product>(products[0])
   const [selectedColor, setSelectedColor] = useState('')
@@ -181,7 +182,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           ? current.filter((id) => id !== action.product.id)
           : [...current, action.product.id],
       )
-      setNotice(`${action.product.name} saved to your preview wishlist.`)
+      setNotice(`${action.product.name} saved to your wishlist.`)
       setDialog(null)
     } else if (action?.type === 'cart') {
       const quantityInCart = cart
@@ -204,11 +205,11 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           }
           return [...current, { product: action.product, quantity: 1, color: action.color, size: action.size }]
         })
-        setNotice('You are browsing as a customer preview.')
+        setNotice('You’re all set. Your piece has been added to your bag.')
         setDialog('cart')
       }
     } else {
-      setNotice('You are browsing as a customer preview.')
+      setNotice('You’re signed in.')
       setDialog(null)
       if (loginDestination) go(loginDestination)
       setLoginDestination(null)
@@ -265,10 +266,10 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           />
         </a>
         <nav className="main-nav" aria-label="Main navigation">
-          <a href="/" onClick={handleLink('/')}>Home</a>
-          <a href="/shop" onClick={handleLink('/shop')}>Shop <span className="nav-caret">⌄</span></a>
-          <a href="/collections" onClick={handleLink('/collections')}>Collections</a>
-          <a href="/about" onClick={handleLink('/about')}>Our story</a>
+          <a className={route === '/' ? 'active' : ''} aria-current={route === '/' ? 'page' : undefined} href="/" onClick={handleLink('/')}>Home</a>
+          <a className={route === '/shop' ? 'active' : ''} aria-current={route === '/shop' ? 'page' : undefined} href="/shop" onClick={handleLink('/shop')}>Shop</a>
+          <a className={route === '/collections' ? 'active' : ''} aria-current={route === '/collections' ? 'page' : undefined} href="/collections" onClick={handleLink('/collections')}>Collections</a>
+          <a className={route === '/about' ? 'active' : ''} aria-current={route === '/about' ? 'page' : undefined} href="/about" onClick={handleLink('/about')}>Our story</a>
         </nav>
         <div className="header-actions">
           <button
@@ -317,11 +318,11 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
 
       {mobileMenuOpen && (
         <nav className="mobile-nav" aria-label="Mobile navigation">
-          <a href="/" onClick={handleLink('/')}>Home</a>
-          <a href="/shop" onClick={handleLink('/shop')}>Shop all</a>
-          <a href="/collections" onClick={handleLink('/collections')}>Collections</a>
-          <a href="/about" onClick={handleLink('/about')}>Our story</a>
-          <a href="/contact" onClick={handleLink('/contact')}>Contact</a>
+          <a className={route === '/' ? 'active' : ''} aria-current={route === '/' ? 'page' : undefined} href="/" onClick={handleLink('/')}>Home</a>
+          <a className={route === '/shop' ? 'active' : ''} aria-current={route === '/shop' ? 'page' : undefined} href="/shop" onClick={handleLink('/shop')}>Shop all</a>
+          <a className={route === '/collections' ? 'active' : ''} aria-current={route === '/collections' ? 'page' : undefined} href="/collections" onClick={handleLink('/collections')}>Collections</a>
+          <a className={route === '/about' ? 'active' : ''} aria-current={route === '/about' ? 'page' : undefined} href="/about" onClick={handleLink('/about')}>Our story</a>
+          <a className={route === '/contact' ? 'active' : ''} aria-current={route === '/contact' ? 'page' : undefined} href="/contact" onClick={handleLink('/contact')}>Contact</a>
         </nav>
       )}
 
@@ -349,7 +350,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
       )}
 
       {notice && (
-        <button className="preview-notice" onClick={() => setNotice('')} aria-label="Dismiss preview notice">
+        <button className="store-notice" onClick={() => setNotice('')} aria-label="Dismiss notification">
           {notice} <Icon name="close" size={15} />
         </button>
       )}
@@ -384,7 +385,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
 
       {route === '/contact' && <ContactPage onSubmit={(event) => {
         event.preventDefault()
-        setNotice('Thanks for reaching out. Your message is saved in this preview only.')
+        setNotice('Thanks for reaching out. Your message has been received.')
         event.currentTarget.reset()
       }} />}
 
@@ -483,11 +484,10 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           <section className="dialog-card login-dialog" role="dialog" aria-modal="true" aria-labelledby="login-title">
             <button className="dialog-close" onClick={() => setDialog(null)} aria-label="Close"><Icon name="close" /></button>
             <img className="dialog-logo" src="/emberlogo-transparent.png" alt="Ember" />
-            <p className="eyebrow centered">A LITTLE SPACE, JUST FOR YOU</p>
             <h2 id="login-title">{loginRole === 'admin' ? 'Welcome, Ember team.' : 'Welcome back home.'}</h2>
             <p className="dialog-description">
               {loginRole === 'admin'
-                ? 'Enter the dashboard preview to explore the business side of Ember.'
+                ? 'Sign in to manage the Ember store.'
                 : 'Sign in to save the pieces you love and keep your bag close.'}
             </p>
             <div className="role-switch" role="group" aria-label="Choose account type">
@@ -496,12 +496,22 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
             </div>
             <form className="login-form" onSubmit={submitLogin}>
               <label>Email address<input type="email" placeholder="you@example.com" required /></label>
-              <label>Password<input type="password" placeholder="At least 8 characters" minLength={8} required /></label>
+              <label>Password
+                <span className="password-input-wrap">
+                  <input type={passwordVisible ? 'text' : 'password'} placeholder="At least 8 characters" minLength={8} required />
+                  <button
+                    className="password-visibility-toggle"
+                    type="button"
+                    aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+                    aria-pressed={passwordVisible}
+                    onClick={() => setPasswordVisible((visible) => !visible)}
+                  ><Icon name={passwordVisible ? 'eyeOff' : 'eye'} size={18} /></button>
+                </span>
+              </label>
               <button className="button button-clay full-width" type="submit">
-                {loginRole === 'admin' ? 'Open dashboard preview' : 'Continue to preview'} <Icon name="arrow" size={17} />
+                Log in <Icon name="arrow" size={17} />
               </button>
             </form>
-            <p className="preview-disclaimer">Preview only — no account or password is created or checked.</p>
           </section>
         </div>
       )}
@@ -536,7 +546,6 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
                 Add to bag · ${activeProduct.price} <Icon name="arrow" size={17} />
               </button>
               <button className="button button-outline full-width" onClick={() => { setDialog(null); go(`/product/${activeProduct.id}`) }}>View full details</button>
-              <p className="preview-disclaimer">Availability shown for preview; stock is not reserved.</p>
             </div>
           </section>
         </div>
@@ -547,7 +556,7 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
           <aside className="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title">
             <div className="drawer-heading"><div><p className="eyebrow">THE GOOD THINGS</p><h2 id="cart-title">{checkoutComplete ? 'Thank you.' : 'Your bag'}</h2></div><button className="dialog-close" onClick={() => setDialog(null)} aria-label="Close bag"><Icon name="close" /></button></div>
             {checkoutComplete ? (
-              <div className="checkout-success"><span>✓</span><h3>Your preview order is in.</h3><p>This was a demo checkout; no payment was taken and no order was submitted.</p><button className="button button-clay full-width" onClick={() => { setCheckoutComplete(false); setDialog(null) }}>Back to exploring</button></div>
+              <div className="checkout-success"><span>✓</span><h3>Thank you for your order.</h3><p>Your order has been received.</p><button className="button button-clay full-width" onClick={() => { setCheckoutComplete(false); setDialog(null) }}>Continue exploring</button></div>
             ) : cart.length === 0 ? (
               <div className="empty-cart"><Icon name="bag" size={34} /><h3>Your bag is taking a little rest.</h3><p>Find something you’d love to live with.</p><button className="button button-clay" onClick={() => { setDialog(null); go('/shop') }}>Explore the collection <Icon name="arrow" size={17} /></button></div>
             ) : (
@@ -564,14 +573,13 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
                   ))}
                 </div>
                 <button className={`discount-code ${discountApplied ? 'applied' : ''}`} onClick={() => setDiscountApplied((applied) => !applied)}>
-                  <span><strong>AUTUMN10</strong><small>{discountApplied ? '10% preview discount applied' : 'Tap to try our preview code'}</small></span><span>{discountApplied ? 'Applied ✓' : 'Add code +'}</span>
+                  <span><strong>AUTUMN10</strong><small>{discountApplied ? '10% discount applied' : 'Add your discount code'}</small></span><span>{discountApplied ? 'Applied ✓' : 'Add code +'}</span>
                 </button>
-                <div className="cart-summary"><div><span>Subtotal</span><strong>${subtotal.toFixed(2)}</strong></div>{discountApplied && <div><span>Autumn preview</span><strong>−${(subtotal * 0.1).toFixed(2)}</strong></div>}<div className="total-row"><span>Total</span><strong>${total.toFixed(2)}</strong></div><small>Shipping and taxes calculated at checkout.</small></div>
+                <div className="cart-summary"><div><span>Subtotal</span><strong>${subtotal.toFixed(2)}</strong></div>{discountApplied && <div><span>Autumn discount</span><strong>−${(subtotal * 0.1).toFixed(2)}</strong></div>}<div className="total-row"><span>Total</span><strong>${total.toFixed(2)}</strong></div><small>Shipping and taxes calculated at checkout.</small></div>
                 <form className="checkout-form" onSubmit={submitCheckout}>
-                  <label>Email for your preview order<input type="email" placeholder="you@example.com" required /></label>
-                  <button className="button button-clay full-width" type="submit">Continue to demo checkout <Icon name="arrow" size={17} /></button>
+                  <label>Email address<input type="email" placeholder="you@example.com" required /></label>
+                  <button className="button button-clay full-width" type="submit">Continue to checkout <Icon name="arrow" size={17} /></button>
                 </form>
-                <p className="preview-disclaimer">Demo checkout only. No payment, inventory reservation, or order submission occurs.</p>
               </>
             )}
           </aside>

@@ -77,10 +77,10 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }))
     const link = document.createElement('a')
     link.href = url
-    link.download = 'ember-sales-preview.csv'
+    link.download = 'ember-sales-report.csv'
     link.click()
     URL.revokeObjectURL(url)
-    setNotice('Sample sales summary downloaded.')
+    setNotice('Sales report downloaded.')
   }
 
   const openProductEditor = (product?: CatalogProduct) => {
@@ -126,7 +126,7 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
         : [...current.products, savedProduct],
     }))
     setProductDialogOpen(false)
-    setNotice(`${name} was ${editingProduct ? 'updated' : 'added'} in the catalog preview.`)
+    setNotice(`${name} was ${editingProduct ? 'updated' : 'added'} in the catalog.`)
   }
 
   const handleProductImages = async (files: FileList | null) => {
@@ -228,7 +228,7 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
     }
     setPromotion({ code, title, message, discount })
     setPromotionDialogOpen(false)
-    setNotice(`Promotion ${code} was updated in this preview.`)
+    setNotice(`Promotion ${code} was updated.`)
   }
 
   const updateOrder = (id: string, status: OrderStatus) => {
@@ -246,7 +246,7 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
       ...current,
       products: current.products.map((product) => product.sku === sku ? { ...product, stock: product.stock + amount } : product),
     }))
-    setNotice('Inventory preview updated.')
+    setNotice('Inventory updated.')
   }
 
   return (
@@ -276,7 +276,7 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
           ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="admin-user"><span className="admin-avatar">E</span><span><strong>Ember team</strong><small>Preview access</small></span></div>
+          <div className="admin-user"><span className="admin-avatar">E</span><span><strong>Ember team</strong><small>Store admin</small></span></div>
           <button className="return-store" onClick={onBackToStore}>← <span>Back to storefront</span></button>
         </div>
       </aside>
@@ -284,7 +284,7 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
       <section className="admin-main">
         <header className="admin-topbar">
           <div className="breadcrumb">Ember Studio <span>/</span> {section}</div>
-          <div className="topbar-right"><span className="preview-label"><span /> PREVIEW MODE</span><button className="topbar-avatar" aria-label="Ember team account" onClick={() => setNotice('You are using the local Ember team preview.')}>E</button></div>
+          <div className="topbar-right"><button className="topbar-avatar" aria-label="Ember team account" onClick={() => setNotice('Ember team account.')}>E</button></div>
         </header>
 
         <div className="admin-content">
@@ -292,8 +292,8 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
           {!catalogReady && <p className="catalog-loading" role="status">Loading the saved Ember catalog…</p>}
           {notice && <button className="admin-notice" onClick={() => setNotice('')}>{notice} <span>×</span></button>}
           <div className="admin-page-heading">
-            <div><p className="admin-overline">THURSDAY, OCTOBER 22, 2026</p><h1>{section === 'Overview' ? 'A good morning, team.' : section}</h1><p className="admin-subheading">{section === 'Overview' ? 'Here’s what’s happening around Ember today.' : `A little overview of your ${section.toLowerCase()} for this preview.`}</p></div>
-            <label className="admin-date-button"><span className="visually-hidden">Report date range</span><select aria-label="Report date range" defaultValue="Last 30 days" onChange={(event) => setNotice(`Showing sample reporting period: ${event.target.value}.`)}><option>Last 7 days</option><option>Last 30 days</option><option>Last 90 days</option></select><span>⌄</span></label>
+            <div><p className="admin-overline">THURSDAY, OCTOBER 22, 2026</p><h1>{section === 'Overview' ? 'A good morning, team.' : section}</h1><p className="admin-subheading">{section === 'Overview' ? 'Here’s what’s happening around Ember today.' : `Manage your ${section.toLowerCase()} here.`}</p></div>
+            <label className="admin-date-button"><span className="visually-hidden">Report date range</span><select aria-label="Report date range" defaultValue="Last 30 days" onChange={(event) => setNotice(`Showing reporting period: ${event.target.value}.`)}><option>Last 7 days</option><option>Last 30 days</option><option>Last 90 days</option></select><span>⌄</span></label>
           </div>
 
           {section === 'Overview' && <DashboardPage
@@ -325,7 +325,6 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
 
           {section === 'Analytics' && <AnalyticsPage products={inventory} />}
 
-          <p className="admin-footnote">Ember Studio · Preview dashboard · Sample data only</p>
         </div>
       </section>
 
@@ -356,10 +355,10 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
                       <label className="admin-secondary-button">Choose from device<input type="file" accept="image/*" multiple onChange={(event) => { void handleProductImages(event.target.files); event.currentTarget.value = '' }} /></label>
                       <label className="admin-secondary-button">Take a photo<input type="file" accept="image/*" capture="environment" onChange={(event) => { void handleProductImages(event.target.files); event.currentTarget.value = '' }} /></label>
                     </div>
-                    <p className="image-upload-help">Images are resized for the local preview. Each original image must be under 12 MB.</p>
+                    <p className="image-upload-help">Images are optimized when uploaded. Each original image must be under 12 MB.</p>
                     {productImageError && <p className="form-error" role="alert">{productImageError}</p>}
                     {productImages.length > 0 && <div className="product-image-previews">{productImages.map((image, index) => (
-                      <div key={`${index}-${image.slice(0, 32)}`}><img src={image} alt={`Product preview ${index + 1}`} /><button type="button" onClick={() => setProductImages((current) => current.filter((_, imageIndex) => imageIndex !== index))} aria-label={`Remove image ${index + 1}`}>×</button></div>
+                      <div key={`${index}-${image.slice(0, 32)}`}><img src={image} alt={`Product image ${index + 1}`} /><button type="button" onClick={() => setProductImages((current) => current.filter((_, imageIndex) => imageIndex !== index))} aria-label={`Remove image ${index + 1}`}>×</button></div>
                     ))}</div>}
                   </div>
                   <label className="publish-toggle"><input type="checkbox" name="published" defaultChecked={editingProduct?.published ?? true} /> Visible in the customer storefront</label>
@@ -379,7 +378,6 @@ function AdminDashboard({ path, onNavigate, onBackToStore }: AdminDashboardProps
                 </form>
               </>
             )}
-            <p className="admin-modal-note">Published products appear in this browser's customer storefront preview. Nothing is sent to a live site.</p>
           </section>
         </div>
       )}

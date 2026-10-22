@@ -87,6 +87,8 @@
   transition: color .2s ease;
 }
 
+.main-nav a.active { position: relative; color: #8e5436; font-weight: 600; }
+.main-nav a.active::after { position: absolute; right: 0; bottom: -10px; left: 0; height: 1px; background: #a56848; content: ''; }
 .main-nav a:hover, .text-link:hover { color: var(--clay); }
 .nav-caret { margin-left: 3px; color: #9c958c; }
 
@@ -131,7 +133,7 @@
 .search-bar input { flex: 1; height: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 14px; }
 .search-bar button { border: 0; background: transparent; color: var(--clay); cursor: pointer; font-size: 12px; }
 
-.preview-notice {
+.store-notice {
   position: fixed;
   z-index: 8;
   right: 22px;
@@ -392,9 +394,12 @@
 .login-form { display: grid; gap: 14px; }
 .login-form label, .checkout-form label { display: grid; gap: 7px; color: #564f45; font-size: 10px; }
 .login-form input, .checkout-form input { height: 42px; padding: 0 12px; border: 1px solid #e3ddd4; border-radius: 0; background: #fffefa; color: var(--ink); font-size: 11px; }
+.password-input-wrap { position: relative; display: flex; min-width: 0; }
+.password-input-wrap input { width: 100%; padding-right: 46px; }
+.password-visibility-toggle { position: absolute; inset: 0 0 0 auto; display: grid; width: 42px; place-items: center; border: 0; background: transparent; color: #74695d; cursor: pointer; }
+.password-visibility-toggle:hover { color: var(--clay); }
 .full-width { width: 100%; }
 .login-form .button { margin-top: 5px; }
-.preview-disclaimer { margin: 14px 0 0; color: #9a8f82; font-size: 9px; line-height: 1.5; text-align: center; }
 
 .product-dialog { display: grid; width: min(880px, 100%); grid-template-columns: 1fr 1fr; gap: 32px; padding: 24px; }
 .product-dialog > img { width: 100%; height: 100%; min-height: 440px; object-fit: cover; background: #eee9e1; }
@@ -562,9 +567,9 @@
 .brand-word small { font-size: 9px; }
 .main-nav a, .search-bar button, .hero-social-proof div:last-child, .footer-bottom button { font-size: var(--font-small); }
 .bag-count, .season-card > div:nth-child(2) span, .category-number, .collection-caption,
-.product-badge, .product-category, .preview-disclaimer { font-size: 10px; }
+.product-badge, .product-category { font-size: 10px; }
 .search-bar input, .hero-description, .collection-copy > p:not(.eyebrow) { font-size: var(--font-lead); }
-.preview-notice, .button, .season-card > div:nth-child(2) small, .shipping-card small,
+.store-notice, .button, .season-card > div:nth-child(2) small, .shipping-card small,
 .filter-chip, .sort-select, .sort-select select, .quick-add, .product-color, .footer-links a,
 .newsletter > p, .newsletter input { font-size: var(--font-small); }
 .eyebrow, .eyebrow.centered { font-size: 11px; }
@@ -665,7 +670,6 @@
 .cart-page-summary { align-self: start; }
 .cart-page-summary .cart-summary { margin: 20px 0; }
 .cart-page-summary .checkout-form { display: grid; gap: 12px; }
-.cart-page-summary .checkout-form .preview-disclaimer { text-align: left; }
 .store-page .account-stats { max-width: 480px; }
 .store-page .saved-title { font-size: 20px; }
 .product-details h3 a { color: inherit; text-decoration: none; }
@@ -676,6 +680,7 @@
 @media (max-width: 620px) {
   .mobile-nav { position: sticky; top: 60px; z-index: 9; display: grid; padding: 8px 5% 14px; border-bottom: 1px solid var(--line); background: var(--white); box-shadow: 0 8px 16px #29251f0a; }
   .mobile-nav a { padding: 11px 4px; border-bottom: 1px solid #f1ede7; color: #504a42; font-size: 13px; text-decoration: none; }
+  .mobile-nav a.active { border-bottom-color: #b37a59; color: #8e5436; font-weight: 600; }
   .store-page { padding: 48px 6% 62px; }
   .page-intro { padding-top: 44px; padding-bottom: 25px; }
   .shop-page-intro { padding-bottom: 0; }
@@ -691,10 +696,8 @@
   .shop-page-products .shop-controls { align-items: start; flex-direction: column; justify-content: center; gap: 8px; padding: 10px 0; }
   .shop-page-products .filter-list { width: 100%; }
   .shop-page-products .sort-select { align-self: flex-end; }
-  .collections-intro { padding-bottom: 22px; }
   .collections-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; padding: 0 5% 30px; }
   .collection-category-card { height: 190px; }
   .collection-category-copy { align-items: start; flex-direction: column; padding: 12px; }
   .collection-category-copy > span { font-size: 8px; }
-  .collection-feature { margin: 0 5% 45px; }
 }

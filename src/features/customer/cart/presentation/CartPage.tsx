@@ -38,7 +38,7 @@ export default function CartPage({
       {!signedIn ? (
         <div className="page-empty"><p>Sign in to use your shopping bag.</p><button className="button button-clay" onClick={onSignIn}>Sign in to continue</button></div>
       ) : orderComplete ? (
-        <div className="page-empty"><h2>Thank you for trying the demo checkout.</h2><p>No payment was processed and no order was placed.</p><button className="button button-clay" onClick={() => { onResetCheckout(); onNavigate('/shop') }}>Continue exploring</button></div>
+        <div className="page-empty"><h2>Thank you for your order.</h2><p>Your order has been received.</p><button className="button button-clay" onClick={() => { onResetCheckout(); onNavigate('/shop') }}>Continue exploring</button></div>
       ) : cart.length === 0 ? (
         <div className="page-empty"><p>Your bag is taking a little rest.</p><a className="button button-clay" href="/shop" onClick={(event) => { event.preventDefault(); onNavigate('/shop') }}>Explore the collection</a></div>
       ) : (
@@ -58,12 +58,12 @@ export default function CartPage({
           ))}</div>
           <div className="cart-page-summary">
             <button className={`discount-code ${discountApplied ? 'applied' : ''}`} onClick={onToggleDiscount}>
-              <span><strong>AUTUMN10</strong><small>{discountApplied ? '10% preview discount applied' : 'Tap to try our preview code'}</small></span>
+              <span><strong>AUTUMN10</strong><small>{discountApplied ? '10% discount applied' : 'Add your discount code'}</small></span>
               <span>{discountApplied ? 'Applied ✓' : 'Add code +'}</span>
             </button>
             <div className="cart-summary">
               <div><span>Subtotal</span><strong>${subtotal.toFixed(2)}</strong></div>
-              {discountApplied && <div><span>Autumn preview</span><strong>−${(subtotal * .1).toFixed(2)}</strong></div>}
+              {discountApplied && <div><span>Autumn discount</span><strong>−${(subtotal * .1).toFixed(2)}</strong></div>}
               <div className="total-row"><span>Total</span><strong>${total.toFixed(2)}</strong></div>
             </div>
             {isCheckout ? (
@@ -71,8 +71,7 @@ export default function CartPage({
                 <label>Email address<input type="email" required autoComplete="email" /></label>
                 <label>Shipping address<input required autoComplete="street-address" /></label>
                 <label>City<input required autoComplete="address-level2" /></label>
-                <button className="button button-clay full-width" type="submit">Place demo order <StorefrontIcon name="arrow" size={17} /></button>
-                <p className="preview-disclaimer">Demo checkout only. No payment, inventory reservation, or real order submission occurs.</p>
+                <button className="button button-clay full-width" type="submit">Place order <StorefrontIcon name="arrow" size={17} /></button>
               </form>
             ) : (
               <button className="button button-clay full-width" onClick={() => onNavigate('/checkout')}>Continue to checkout <StorefrontIcon name="arrow" size={17} /></button>

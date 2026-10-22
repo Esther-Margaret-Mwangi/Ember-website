@@ -1,5 +1,7 @@
 import type { CatalogProduct } from '../../catalog'
 import ProductGrid from './ProductGrid'
+import { StorefrontIcon } from '../../../shared/components/StorefrontIcon'
+import './ShopPage.css'
 
 export default function ShopPage({
   products,
@@ -26,12 +28,17 @@ export default function ShopPage({
 }) {
   return (
     <main className="shop-page">
-      <section className="store-page page-intro shop-page-intro">
-        <p className="eyebrow"><span /> THE EMBER SHOP</p>
-        <h1>Thoughtful pieces, for every room.</h1>
-        <p>Objects chosen to bring comfort, character, and calm to your everyday.</p>
+      <section className="shop-hero">
+        <div className="shop-hero-image" role="img" aria-label="A thoughtfully styled home with natural textures and warm, comfortable furniture" />
+        <div className="shop-hero-shade" />
+        <div className="shop-hero-copy">
+          <p className="eyebrow light">THE EMBER SHOP · OBJECTS CHOSEN TO STAY</p>
+          <h1>Thoughtful pieces,<br />for every room.</h1>
+          <p>Find the small comforts, warm textures, and everyday essentials that feel like home.</p>
+          <a className="button button-light" href="#shop-products" onClick={(event) => { event.preventDefault(); document.getElementById('shop-products')?.scrollIntoView({ behavior: 'smooth' }) }}>Browse all pieces <StorefrontIcon name="arrow" size={17} /></a>
+        </div>
       </section>
-      <section className="products-section shop-page-products" aria-label="Shop all products">
+      <section className="products-section shop-page-products" id="shop-products" aria-label="Shop all products">
         <div className="shop-controls">
           <div className="filter-list" aria-label="Filter by category">
             {['All', ...categories].map((item) => (

@@ -25,7 +25,7 @@ export default function CategoriesPage({
         <form className="admin-edit-form" onSubmit={onSubmit}>
           <label>Category name<input name="categoryName" required maxLength={40} placeholder="e.g. Tableware" /></label>
           <label>Category image (optional)<input type="file" accept="image/*" onChange={(event) => onImageChange(event.target.files?.[0])} /></label>
-          {image && <img className="category-image-preview" src={image} alt="Selected category preview" />}
+          {image && <img className="category-image-preview" src={image} alt="Selected category image" />}
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="admin-primary-button" type="submit">Add category</button>
         </form>

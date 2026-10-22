@@ -35,7 +35,6 @@ export default function ProductDetailPage({
         <select id="detail-size" className="size-select" value={selectedSize} onChange={(event) => setSelectedSize(event.target.value)}><option>One size</option><option>Small</option><option>Medium</option><option>Large</option></select>
         <button className="button button-clay full-width" disabled={product.stock === 0} onClick={() => onAddToCart(selectedSize)}>Add to bag · ${product.price} <StorefrontIcon name="arrow" size={17} /></button>
         <button className={`button button-outline full-width ${favorite ? 'saved' : ''}`} onClick={onToggleFavorite}>{favorite ? 'Saved to wishlist' : 'Add to wishlist'}</button>
-        <p className="preview-disclaimer">Preview product details. Stock availability and product options are sample data.</p>
       </div>
     </section>
   )

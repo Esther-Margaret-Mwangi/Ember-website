@@ -1,5 +1,6 @@
 import type { CatalogCategory } from '../../catalog'
 import { StorefrontIcon } from '../../../shared/components/StorefrontIcon'
+import './CollectionsPage.css'
 
 export default function CollectionsPage({
   categories,
@@ -10,12 +11,18 @@ export default function CollectionsPage({
 }) {
   return (
     <>
-      <section className="store-page page-intro collections-intro">
-        <p className="eyebrow"><span /> THOUGHTFULLY GATHERED</p>
-        <h1>Collections for the way you live.</h1>
-        <p>Explore considered pieces for every room, ritual, and slower moment at home.</p>
+      <section className="collections-hero">
+        <div className="collections-hero-image" role="img" aria-label="Sunlit living room with warm leather seating, plants, and gathered home decor" />
+        <div className="collections-hero-shade" />
+        <div className="collections-hero-copy">
+          <p className="eyebrow light">THOUGHTFULLY GATHERED · EMBER EDITS</p>
+          <h1>Collections for<br />the way you live.</h1>
+          <p>Warm layers, considered objects, and little details that make a house feel like yours.</p>
+          <a className="button button-light" href="#collections-list" onClick={(event) => { event.preventDefault(); document.getElementById('collections-list')?.scrollIntoView({ behavior: 'smooth' }) }}>Explore the collections <StorefrontIcon name="arrow" size={17} /></a>
+        </div>
+        <span className="collections-hero-caption">GATHERED WITH CARE · MADE TO BE LIVED WITH</span>
       </section>
-      <section className="collections-page-grid" aria-label="Explore collections">
+      <section className="collections-page-grid" id="collections-list" aria-label="Explore collections">
         {categories.map((category, index) => (
           <a
             className="collection-category-card"
@@ -27,21 +34,10 @@ export default function CollectionsPage({
             }}
           >
             <img src={category.image} alt="" loading="lazy" />
-            <span className="collection-category-number">0{index + 1} / {String(categories.length).padStart(2, '0')}</span>
+            <span className="collection-category-number">{String(index + 1).padStart(2, '0')} / {String(categories.length).padStart(2, '0')}</span>
             <span className="collection-category-copy"><strong>{category.name}</strong><span>Discover the edit <StorefrontIcon name="arrow" size={16} /></span></span>
           </a>
         ))}
-      </section>
-      <section className="collection-banner collection-feature">
-        <div className="collection-image" role="img" aria-label="Autumn-toned living room with a textured throw and handmade pottery" />
-        <div className="collection-shade" />
-        <div className="collection-copy">
-          <p className="eyebrow light">THE SEASONAL EDIT · NO. 04</p>
-          <h2>Gather close.<br />Stay a little longer.</h2>
-          <p>Warm layers, glowing light, and small things that make a house feel like yours.</p>
-          <a className="button button-light" href="/shop?category=Atmosphere" onClick={(event) => { event.preventDefault(); onNavigate('/shop?category=Atmosphere') }}>Shop the seasonal edit <StorefrontIcon name="arrow" size={17} /></a>
-        </div>
-        <span className="collection-caption">MADE FOR THE IN-BETWEEN MOMENTS</span>
       </section>
     </>
   )

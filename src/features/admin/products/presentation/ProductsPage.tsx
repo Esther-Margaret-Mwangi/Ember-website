@@ -16,7 +16,7 @@ export default function ProductsPage({
 }) {
   return (
     <article className="admin-panel inventory-table-panel">
-      <div className="panel-heading"><div><h2>All pieces</h2><p>Products in your current collection preview.</p></div><button className="admin-primary-button" onClick={onAdd}>+ Add product</button></div>
+      <div className="panel-heading"><div><h2>All pieces</h2><p>Products in your current collection.</p></div><button className="admin-primary-button" onClick={onAdd}>+ Add product</button></div>
       <ProductTable products={products} onEdit={onEdit} onTogglePublished={onTogglePublished} onRemove={onRemove} />
     </article>
   )

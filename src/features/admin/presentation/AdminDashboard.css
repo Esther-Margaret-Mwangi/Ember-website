@@ -27,8 +27,6 @@
 .breadcrumb { color: #81796f; font-size: 10px; }
 .breadcrumb span { margin: 0 9px; color: #c1b9ae; }
 .topbar-right { display: flex; align-items: center; gap: 16px; }
-.preview-label { display: flex; align-items: center; gap: 7px; color: #8e755d; font-size: 8px; font-weight: 600; letter-spacing: .12em; }
-.preview-label > span { width: 6px; height: 6px; border-radius: 50%; background: #c18a57; }
 .topbar-avatar { width: 29px; height: 29px; padding: 0; cursor: pointer; }
 .admin-content { width: min(1200px, 100%); margin: 0 auto; padding: 36px 4.5% 35px; contain: paint; }
 .admin-notice { display: flex; width: 100%; justify-content: space-between; margin: 0 0 20px; padding: 11px 14px; border: 1px solid #e5d9c9; background: #f9f4ed; color: #755a3d; cursor: pointer; font-size: 10px; text-align: left; }
@@ -108,10 +106,6 @@
 .stock-adjust { display: inline-flex; gap: 5px; }
 .stock-adjust button { display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #e8e2d9; background: #fffefa; color: #80634c; cursor: pointer; }
 .stock-adjust button:hover { border-color: #c4a98d; background: #f9f4ee; }
-.reservation-note { display: flex; gap: 11px; margin-top: 14px; padding: 14px; border: 1px solid #eadfce; background: #f8f3ea; }
-.reservation-note > span { color: #a66b3f; font-size: 16px; }
-.reservation-note p { margin: 0; color: #877b6b; font-size: 9px; line-height: 1.65; }
-.reservation-note strong { color: #584633; font-size: 10px; }
 .admin-primary-button, .admin-secondary-button { min-height: 31px; padding: 0 12px; border: 0; background: var(--clay); color: white; cursor: pointer; font-size: 9px; }
 .admin-secondary-button { border: 1px solid #ded2c3; background: transparent; color: #72583e; }
 .full-table { margin-top: 0; }
@@ -171,7 +165,6 @@
   .breadcrumb { font-size: 8px; }
   .breadcrumb span { margin: 0 4px; }
   .topbar-right { gap: 7px; }
-  .preview-label { gap: 4px; font-size: 6px; }
   .topbar-avatar { width: 25px; height: 25px; font-size: 11px; }
   .admin-content { padding: 25px 14px; }
   .admin-page-heading { align-items: start; gap: 10px; }
@@ -197,7 +190,6 @@
   .inventory-summary span { font-size: 8px; }
   .inventory-summary strong { font-size: 18px; }
   .soft-tag { font-size: 6px; white-space: nowrap; }
-  .reservation-note { padding: 11px; }
   .promo-grid, .analytics-cards { grid-template-columns: 1fr; }
   .promo-card { padding: 17px; }
   .new-promo-card { min-height: 170px; }
@@ -205,10 +197,10 @@
 
 .admin-app { font-size: 14px; }
 .admin-brand small { font-size: 9px; }
-.sidebar-label, .admin-user small, .admin-overline, .preview-label, .metric-card > small,
+.sidebar-label, .admin-user small, .admin-overline, .metric-card > small,
 .panel-heading p, .sales-total small, .chart-y-axis, .chart-x-axis, .stock-alert > span small,
 .admin-table th, .admin-table td select, .inventory-summary span, .soft-tag,
-.inventory-product strong, .stock-indicator, .reservation-note p, .promo-meta span,
+.inventory-product strong, .stock-indicator, .promo-meta span,
 .promo-meta strong, .new-promo-card small, .analytics-cards > article > p, .top-seller b,
 .admin-footnote, .promo-status, .admin-nav button .nav-badge {
   font-size: 10px;
@@ -226,7 +218,6 @@
 .panel-heading h2 { font-size: 18px; }
 .sales-total strong { font-size: 24px; }
 .inventory-summary strong { font-size: 22px; }
-.reservation-note strong { font-size: 12px; }
 .promo-card > p { font-size: 12px; }
 .promo-card h2 { font-size: 26px; }
 .analytics-cards > article > strong { font-size: 28px; }
