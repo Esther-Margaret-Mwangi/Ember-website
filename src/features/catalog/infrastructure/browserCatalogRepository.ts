@@ -5,20 +5,20 @@ const databaseVersion = 3
 const objectStoreName = 'catalog'
 const catalogKey = 'current'
 const metadataStoreName = 'metadata'
-const seedMigrationKey = 'ember-seed-v5'
-const previousSeedCategoryImageIds: Record<string, string> = {
-  lighting: 'photo-1507473885765-e6ed057f782c',
-  textiles: 'photo-1600369671236-e74521d4b6ad',
-  decor: 'photo-1578500494198-246f612d3b3d',
-  atmosphere: 'photo-1603006905003-be475563bc59',
-  tableware: 'photo-1490312278390-ab64016e0aa9',
-  rugs: 'photo-1600210492486-724fe5c67fb0',
-  'wall-art': 'photo-1577083552431-6e5fd01aa342',
-  furniture: 'photo-1616486338812-3dadae4b4ace',
-  planters: 'photo-1485955900006-10f4d324d411',
-  mirrors: 'photo-1618221195710-dd6b41faaea6',
-  storage: 'photo-1595428774223-ef52624120d2',
-  bedding: 'photo-1631049307264-da0ec9d70304',
+const seedMigrationKey = 'ember-seed-v7'
+const previousSeedCategoryImageIds: Record<string, string[]> = {
+  lighting: ['photo-1517991104123-1d56a6e81ed9', 'photo-1507473885765-e6ed057f782c'],
+  textiles: ['photo-1511401139252-f158d3209c17', 'photo-1600369671236-e74521d4b6ad', 'photo-1674475760738-8c7af859f821'],
+  decor: ['photo-1572048572872-2394404cf1f3', 'photo-1578500494198-246f612d3b3d', 'photo-1677761640321-b80251be00ca'],
+  atmosphere: ['photo-1759262151253-375c311347c7', 'photo-1603006905003-be475563bc59'],
+  tableware: ['photo-1524259493079-d51c2c78adfe', 'photo-1490312278390-ab64016e0aa9', 'photo-1610128361323-6e941c97f023'],
+  rugs: ['photo-1600210492486-724fe5c67fb0', 'photo-1583847268964-b28dc8f51f92'],
+  'wall-art': ['photo-1598240087583-2f610faf1eaf', 'photo-1577083552431-6e5fd01aa342', 'photo-1452457005517-a0dd81caca2a'],
+  furniture: ['photo-1616486338812-3dadae4b4ace', 'photo-1611486212355-d276af4581c0'],
+  planters: ['photo-1485955900006-10f4d324d411', 'photo-1601985705806-5b9a71f6004f'],
+  mirrors: ['photo-1618221195710-dd6b41faaea6', 'photo-1616046330109-09ee9e34be48'],
+  storage: ['photo-1586802005224-03286636cbca', 'photo-1595428774223-ef52624120d2', 'photo-1645542554266-b275c100103c'],
+  bedding: ['photo-1631049307264-da0ec9d70304', 'photo-1606796913825-2b02883605e9'],
 }
 const previousSeedProductImageIds: Record<string, string[]> = {
   'ATM-001': ['photo-1603006905003-be475563bc59'],
@@ -118,8 +118,8 @@ function mergeSeedCatalog(storedCatalog: CatalogData): CatalogData {
       continue
     }
     const existingCategory = categories[existingCategoryIndex]
-    const previousImageId = previousSeedCategoryImageIds[seedCategory.id]
-    if (previousImageId && existingCategory.image.includes(previousImageId)) {
+    const previousImageIds = previousSeedCategoryImageIds[seedCategory.id] ?? []
+    if (previousImageIds.some((imageId) => existingCategory.image.includes(imageId))) {
       categories[existingCategoryIndex] = { ...existingCategory, image: seedCategory.image }
     }
   }
