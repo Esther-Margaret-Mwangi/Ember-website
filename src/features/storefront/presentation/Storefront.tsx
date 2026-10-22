@@ -553,7 +553,6 @@ function Storefront({ onOpenAdmin }: StorefrontProps) {
         </div>
         <div className="footer-bottom" id="footer">
           <span>© 2025 Ember Home. Made for the moments in between.</span>
-          <button onClick={() => requestLogin('admin')}>Admin preview</button>
           <span>Privacy · Terms</span>
         </div>
       </footer>
