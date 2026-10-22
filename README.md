@@ -1,75 +1,28 @@
-# React + TypeScript + Vite
+# Ember
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ember is a responsive home-decor storefront and business dashboard preview built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Use `npm run lint` to lint the project and `npm run build` to type-check and create the production bundle.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Preview features
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Browse and filter the home collection, search products, choose product options, and sort by price.
+- Open the sign-in preview to explore customer-only wishlist and bag interactions.
+- View sample order-history rows in the customer account preview.
+- Explore the separate Ember Studio dashboard preview, including sample sales reporting, product stock controls, promotions, and order status changes.
+- Try the `AUTUMN10` preview discount in the shopping bag.
 
-```
+## Important limitations
+
+This repository currently contains only a client-side application. Sign-in forms are previews and do not authenticate users or create accounts. Customer and admin roles are not secured. Cart, wishlist, stock, and dashboard changes are in-memory demo state, not durable customer or business records.
+
+Checkout does not contact a payment provider or submit an order. Stock is not reserved or decremented by checkout, so this preview does not prevent concurrent purchases of the last item. A production launch needs a trusted backend with authorization, persistent data, atomic inventory reservations with expiration/release behavior, order processing, and a payment provider's sandbox integration before live payments are enabled.
+
+Product photography is loaded from Unsplash image URLs and requires an internet connection.
