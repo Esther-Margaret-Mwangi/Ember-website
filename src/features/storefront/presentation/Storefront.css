@@ -235,20 +235,21 @@
   right: 6.2%;
   z-index: 1;
   display: flex;
-  width: 252px;
-  min-height: 92px;
+  width: 296px;
+  min-height: 98px;
   align-items: center;
   gap: 13px;
-  padding: 12px;
+  padding: 10px;
   background: rgb(255 254 250 / 92%);
   box-shadow: 0 10px 32px #32271c14;
 }
-.season-art { width: 57px; height: 65px; flex: 0 0 auto; background: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=220&q=80') center/cover; }
-.season-card > div:nth-child(2) { display: flex; flex-direction: column; gap: 5px; }
+.season-art { width: 64px; height: 68px; flex: 0 0 auto; background: url('https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=250&q=80') center/cover; }
+.season-card > div:nth-child(2) { display: flex; flex-direction: column; gap: 4px; }
 .season-card > div:nth-child(2) span { color: #948b7f; font-size: 8px; letter-spacing: .14em; }
 .season-card > div:nth-child(2) strong { font-family: var(--serif); font-size: 14px; font-weight: 500; }
 .season-card > div:nth-child(2) small { color: var(--muted); font-size: 9px; }
-.season-card > a { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; margin-left: auto; border: 1px solid #e8e0d7; border-radius: 50%; color: #594b3d; }
+.season-card > a { display: grid; width: 26px; height: 26px; flex: 0 0 auto; place-items: center; margin-left: 9px; border: 1px solid #e8e0d7; border-radius: 50%; color: #594b3d; }
+.season-card > a svg { width: 15px; height: 15px; }
 .shipping-card {
   position: absolute;
   right: 5.4%;
@@ -478,7 +479,8 @@
   .hero { min-height: 570px; }
   .hero-copy { width: 56%; padding-left: 6%; }
   .hero h1 { font-size: clamp(48px, 7vw, 68px); }
-  .season-card { right: 4%; width: 220px; }
+  .season-card { right: 4%; width: min(270px, 50%); min-height: 92px; gap: 12px; padding: 9px; }
+  .season-art { width: 54px; height: 62px; }
   .shipping-card { right: 4%; }
   .category-strip { gap: 10px; padding-right: 4%; padding-left: 4%; }
   .category-tile { height: 150px; padding: 13px; }
@@ -510,8 +512,8 @@
   .hero-ctas { margin-top: 20px; }
   .button { min-height: 42px; padding: 0 14px; font-size: 10px; }
   .hero-social-proof { margin-top: 20px; }
-  .season-card { top: auto; right: 6%; bottom: 16%; width: 215px; min-height: 78px; padding: 9px; }
-  .season-art { width: 46px; height: 56px; }
+  .season-card { top: auto; right: 6%; bottom: 16%; width: min(230px, 88%); min-height: 70px; gap: 10px; padding: 7px; }
+  .season-art { width: 42px; height: 50px; }
   .shipping-card { right: 6%; bottom: 4%; padding: 10px 12px; }
   .hero-pagination { right: auto; bottom: 22px; left: 7%; }
   .category-strip { grid-template-columns: repeat(2, 1fr); gap: 9px; padding: 22px 5% 27px; }
@@ -566,16 +568,18 @@
 .announcement { font-size: var(--font-caption); }
 .brand-word small { font-size: 9px; }
 .main-nav a, .search-bar button, .hero-social-proof div:last-child, .footer-bottom button { font-size: var(--font-small); }
-.bag-count, .season-card > div:nth-child(2) span, .category-number, .collection-caption,
+.bag-count, .category-number, .collection-caption,
 .product-badge, .product-category { font-size: 10px; }
 .search-bar input, .hero-description, .collection-copy > p:not(.eyebrow) { font-size: var(--font-lead); }
-.store-notice, .button, .season-card > div:nth-child(2) small, .shipping-card small,
+.store-notice, .button, .shipping-card small,
 .filter-chip, .sort-select, .sort-select select, .quick-add, .product-color, .footer-links a,
 .newsletter > p, .newsletter input { font-size: var(--font-small); }
 .eyebrow, .eyebrow.centered { font-size: 11px; }
 .hero h1 { font-size: var(--font-display); }
 .hero-social-proof strong { font-size: var(--font-subheading); }
-.season-card > div:nth-child(2) strong { font-size: 16px; }
+.season-card > div:nth-child(2) span { font-size: 8px; }
+.season-card > div:nth-child(2) strong { font-size: 14px; }
+.season-card > div:nth-child(2) small { font-size: 9px; }
 .shipping-card strong { font-size: var(--font-small); }
 .category-name { font-size: clamp(1rem, 1.35vw, 1.2rem); }
 .collection-copy h2 { font-size: clamp(2.2rem, 4.2vw, 3.4rem); }
