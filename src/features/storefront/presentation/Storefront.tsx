@@ -531,9 +531,12 @@ function Storefront({ onOpenAdmin }: StorefrontProps) {
       <footer className="store-footer">
         <div className="footer-main">
           <div className="footer-brand">
-            <a className="footer-brand-logo" href="#home" aria-label="Ember home">
-              <img src="/emberlogo2.png" alt="Ember emblem" />
-            </a>
+            <div className="footer-brand-lockup">
+              <a className="footer-brand-logo" href="#home" aria-label="Ember home">
+                <img src="/emberlogo2.png" alt="" />
+              </a>
+              <span className="footer-brand-name">EMBER</span>
+            </div>
             <p>Make room for a little more feeling.</p>
           </div>
           <div className="footer-links"><strong>Explore</strong><a href="#shop">Shop all</a><a href="#collections">Collections</a><a href="#story">Our story</a></div>
