@@ -36,14 +36,19 @@ export default function HomePage({
       </section>
 
       <section className="category-strip" id="collections" aria-label="Shop by category">
-        {categories.map((item, index) => (
-          <a className="category-tile" href={`/shop?category=${encodeURIComponent(item.name)}`} key={item.id} onClick={(event) => { event.preventDefault(); onNavigate(`/shop?category=${encodeURIComponent(item.name)}`) }}>
-            <img src={item.image} alt="" loading="lazy" />
-            <span className="category-number">0{index + 1}</span>
-            <span className="category-name">{item.name}</span>
-            <span className="category-arrow"><StorefrontIcon name="arrow" size={16} /></span>
-          </a>
-        ))}
+        <div className="category-strip-track">
+          {categories.map((item) => (
+            <a className="category-tile" href={`/shop?category=${encodeURIComponent(item.name)}`} key={item.id} onClick={(event) => { event.preventDefault(); onNavigate(`/shop?category=${encodeURIComponent(item.name)}`) }}>
+              <span className="category-image">
+                <img src={item.image} alt="" loading="lazy" />
+              </span>
+              <span className="category-tile-footer">
+                <span className="category-name">{item.name}</span>
+                <span className="category-arrow" aria-hidden="true"><StorefrontIcon name="arrow" size={14} /></span>
+              </span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="collection-banner" id="story">
