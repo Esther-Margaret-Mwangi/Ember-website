@@ -39,6 +39,8 @@ src/
       application/             # Use cases and orchestration
       domain/                  # Entities, value objects, and ports
       infrastructure/          # Concrete repositories and external adapters
+    <page-or-workflow>/
+      presentation/            # Route-owned page and its local components/styles
   shared/
     assets/                    # Reusable images, icons, and other static assets
     components/                # Shared navigation, footer, layout, and UI components
@@ -48,6 +50,35 @@ src/
 ```
 
 `src/App.tsx` is the composition entry point and delegates non-home routes to `src/app/AppRouter.tsx`. Keep route selection in `src/app/`; keep page implementations in their owning feature folders.
+
+### Page and Tab Ownership
+
+- Give each substantial customer-facing route or workflow a clear feature owner. For example:
+
+  ```text
+  src/features/
+    home/presentation/
+    shop/presentation/
+    collections/presentation/
+    customer/
+      profile/presentation/
+      wishlist/presentation/
+      cart/presentation/
+    admin/
+      dashboard/presentation/
+      products/presentation/
+      categories/presentation/
+      orders/presentation/
+      inventory/presentation/
+      promotions/presentation/
+      analytics/presentation/
+  ```
+
+- Keep route selection and feature composition in `src/app/`. Keep navigation, shared page state, and shared dialogs in the smallest existing composition boundary; do not let it accumulate each route's full page markup.
+- Each feature owns its page markup, feature-specific interactions, and nearby styles. Extract a reusable component only when multiple pages actually share it.
+- Keep shared catalog access behind the catalog feature's application API. Do not duplicate catalog data in customer or admin page features.
+- Keep customer-only profile, wishlist, and cart behavior out of the storefront shell. Keep admin tab pages separate from the admin navigation/layout shell.
+- Do not create empty feature folders just to reserve future routes; add a folder when it owns real page or workflow code.
 
 ### Dependency Rules
 

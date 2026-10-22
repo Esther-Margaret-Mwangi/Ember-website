@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import AdminDashboard from './features/admin/presentation/AdminDashboard'
-import Storefront from './features/storefront/presentation/Storefront'
+import AppRouter from './app/AppRouter'
+import { CatalogProvider } from './features/catalog'
 
 function App() {
-  const [page, setPage] = useState<'store' | 'admin'>('store')
-
-  return page === 'store' ? (
-    <Storefront onOpenAdmin={() => setPage('admin')} />
-  ) : (
-    <AdminDashboard onBackToStore={() => setPage('store')} />
+  return (
+    <CatalogProvider>
+      <AppRouter />
+    </CatalogProvider>
   )
 }
 
