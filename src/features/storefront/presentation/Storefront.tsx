@@ -38,6 +38,8 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
   const [searchDraft, setSearchDraft] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [sort, setSort] = useState('Featured')
+  const [homeCategory, setHomeCategory] = useState('All')
+  const [homeSort, setHomeSort] = useState('Featured')
   const [dialog, setDialog] = useState<'login' | 'cart' | 'product' | null>(null)
   const [loginRole, setLoginRole] = useState<'customer' | 'admin'>('customer')
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -85,6 +87,15 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
     if (sort === 'Price: high to low') return filtered.sort((a, b) => b.price - a.price)
     return filtered
   }, [category, favorites, products, query, route, sort])
+
+  const homeProducts = useMemo(() => {
+    const filtered = visibleProducts.filter(
+      (product) => homeCategory === 'All' || product.category === homeCategory,
+    )
+    if (homeSort === 'Price: low to high') filtered.sort((a, b) => a.price - b.price)
+    if (homeSort === 'Price: high to low') filtered.sort((a, b) => b.price - a.price)
+    return filtered
+  }, [homeCategory, homeSort, visibleProducts])
 
   const cartCount = cart.reduce((total, line) => total + line.quantity, 0)
   const subtotal = cart.reduce((total, line) => total + line.product.price * line.quantity, 0)
@@ -441,12 +452,36 @@ function Storefront({ path, onNavigate, onOpenAdmin }: StorefrontProps) {
         onResetCheckout={() => setCheckoutComplete(false)}
       />}
 
-      {route === '/' && <section className="products-section" id="shop">
+      {route === '/' && <section className="products-section home-products-section" id="shop">
         <div className="section-heading">
           <div><p className="eyebrow"><span /> FIND YOUR EVERYDAY</p><h2>Little things, <em>lasting feeling.</em></h2></div>
           <a className="text-link" href="/shop" onClick={handleLink('/shop')}>View all pieces <Icon name="arrow" size={17} /></a>
         </div>
-        <ProductGrid products={visibleProducts} favorites={favorites} onNavigate={go} onToggleFavorite={toggleFavorite} onOpenProduct={openProduct} />
+        <div className="home-shop-controls" role="group" aria-label="Filter and sort products">
+          <div className="filter-list home-filter-list" role="group" aria-label="Filter by category">
+            {['All', ...categories.map((item) => item.name)].map((item) => (
+              <button
+                className={homeCategory === item ? 'filter-chip active' : 'filter-chip'}
+                key={item}
+                aria-pressed={homeCategory === item}
+                onClick={() => setHomeCategory(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+          <label className="sort-select home-sort-select">
+            <span>Sort</span>
+            <select value={homeSort} onChange={(event) => setHomeSort(event.target.value)}>
+              <option>Featured</option>
+              <option>Price: low to high</option>
+              <option>Price: high to low</option>
+            </select>
+          </label>
+        </div>
+        {homeProducts.length
+          ? <ProductGrid products={homeProducts} favorites={favorites} onNavigate={go} onToggleFavorite={toggleFavorite} onOpenProduct={openProduct} />
+          : <div className="empty-search">Nothing found just yet. Try another category.</div>}
       </section>}
 
       {route === '/' && <section className="brand-note">

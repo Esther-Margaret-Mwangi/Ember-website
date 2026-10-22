@@ -25,18 +25,18 @@ export type CatalogData = {
 
 export const initialCatalog: CatalogData = {
   categories: [
-    { id: 'lighting', name: 'Lighting', image: 'https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?auto=format&fit=crop&w=640&q=85' },
-    { id: 'textiles', name: 'Textiles', image: 'https://images.unsplash.com/photo-1511401139252-f158d3209c17?auto=format&fit=crop&w=640&q=85' },
+    { id: 'lighting', name: 'Lighting', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=640&q=85' },
+    { id: 'textiles', name: 'Textiles', image: 'https://images.unsplash.com/photo-1674475760738-8c7af859f821?auto=format&fit=crop&w=640&q=85' },
     { id: 'decor', name: 'Decor', image: 'https://images.unsplash.com/photo-1572048572872-2394404cf1f3?auto=format&fit=crop&w=640&q=85' },
-    { id: 'atmosphere', name: 'Atmosphere', image: 'https://images.unsplash.com/photo-1759262151253-375c311347c7?auto=format&fit=crop&w=640&q=85' },
+    { id: 'atmosphere', name: 'Atmosphere', image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=640&q=85' },
     { id: 'tableware', name: 'Tableware', image: 'https://images.unsplash.com/photo-1524259493079-d51c2c78adfe?auto=format&fit=crop&w=640&q=85' },
     { id: 'rugs', name: 'Rugs', image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=640&q=85' },
-    { id: 'wall-art', name: 'Wall Art', image: 'https://images.unsplash.com/photo-1598240087583-2f610faf1eaf?auto=format&fit=crop&w=640&q=85' },
-    { id: 'furniture', name: 'Furniture', image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=640&q=85' },
-    { id: 'planters', name: 'Planters', image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=640&q=85' },
-    { id: 'mirrors', name: 'Mirrors', image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=640&q=85' },
-    { id: 'storage', name: 'Storage', image: 'https://images.unsplash.com/photo-1586802005224-03286636cbca?auto=format&fit=crop&w=640&q=85' },
-    { id: 'bedding', name: 'Bedding', image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=640&q=85' },
+    { id: 'wall-art', name: 'Wall Art', image: 'https://images.unsplash.com/photo-1452457005517-a0dd81caca2a?auto=format&fit=crop&w=640&q=85' },
+    { id: 'furniture', name: 'Furniture', image: 'https://images.unsplash.com/photo-1611486212355-d276af4581c0?auto=format&fit=crop&w=640&q=85' },
+    { id: 'planters', name: 'Planters', image: 'https://images.unsplash.com/photo-1601985705806-5b9a71f6004f?auto=format&fit=crop&w=640&q=85' },
+    { id: 'mirrors', name: 'Mirrors', image: 'https://images.unsplash.com/photo-1616046330109-09ee9e34be48?auto=format&fit=crop&w=640&q=85' },
+    { id: 'storage', name: 'Storage', image: 'https://images.unsplash.com/photo-1645542554266-b275c100103c?auto=format&fit=crop&w=640&q=85' },
+    { id: 'bedding', name: 'Bedding', image: 'https://images.unsplash.com/photo-1606796913825-2b02883605e9?auto=format&fit=crop&w=640&q=85' },
   ],
   products: [
     {
